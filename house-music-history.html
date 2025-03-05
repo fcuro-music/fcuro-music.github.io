@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ハウスミュージックの歴史：誕生から現代まで</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+    
+    :root {
+      --fashion-1: #593C47;
+      --fashion-2: #F2E63D;
+      --fashion-3: #F2C53D;
+      --fashion-4: #F25C05;
+      --fashion-5: #F24405;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Zen Kurenaido', sans-serif;
+      color: #334155;
+      line-height: 1.4;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--fashion-3);
+      padding-bottom: 16px;
+      position: relative;
+    }
+    
+    .title {
+      font-family: 'Kaisei Decol', serif;
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--fashion-1), var(--fashion-4));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .date {
+      font-size: 14px;
+      color: #475569;
+    }
+    
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .column {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 10px;
+      width: 40px;
+      height: 3px;
+      background-color: var(--fashion-3);
+      border-radius: 5px;
+    }
+    
+    .section-title {
+      font-family: 'Yomogi', cursive;
+      font-size: 18px;
+      color: #1e40af;
+      margin-bottom: 10px;
+      border-bottom: 2px dashed var(--fashion-4);
+      padding-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .highlight {
+      background: linear-gradient(transparent 60%, var(--fashion-2) 60%);
+      font-weight: bold;
+    }
+    
+    .keyword {
+      color: var(--fashion-5);
+      font-weight: bold;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: var(--fashion-3);
+    }
+    
+    .icon {
+      display: inline-block;
+      margin-right: 5px;
+    }
+    
+    .circle {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--fashion-4);
+      margin-right: 5px;
+    }
+    
+    .arrow {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 20px;
+      margin: 10px auto;
+      transform: rotate(180deg);
+    }
+    
+    .arrow::before {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      background-color: var(--fashion-4);
+      top: 50%;
+      left: 0;
+    }
+    
+    .arrow::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid var(--fashion-4);
+      border-right: 2px solid var(--fashion-4);
+      top: 5px;
+      right: 0;
+      transform: rotate(45deg);
+    }
+    
+    .bubble {
+      position: relative;
+      background-color: rgba(242, 230, 61, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    
+    .bubble::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      border-width: 0 10px 10px;
+      border-style: solid;
+      border-color: rgba(242, 230, 61, 0.2) transparent;
+    }
+    
+    .artists-box {
+      border: 2px dashed var(--fashion-3);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+      margin: 15px 0;
+    }
+    
+    .timeline {
+      position: relative;
+      margin-left: 20px;
+    }
+    
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--fashion-2), var(--fashion-5));
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -26px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--fashion-3);
+      border: 2px solid white;
+    }
+    
+    .banner {
+      background: linear-gradient(45deg, var(--fashion-1), var(--fashion-4));
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transform: rotate(-1deg);
+    }
+    
+    footer {
+      margin-top: 40px;
+      text-align: right;
+      font-size: 12px;
+      color: #64748b;
+      border-top: 1px solid var(--fashion-1);
+      padding-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .column {
+        flex: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">ハウスミュージックの歴史：誕生から現代まで</h1>
+      <div class="date">2025年3月6日</div>
+    </header>
+    
+    <div class="content">
+      <!-- 左カラム -->
+      <div class="column">
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">📌</span>誕生と初期の歴史（1980年代）
+          </h2>
+          <div class="bubble">
+            <p><span class="highlight">1980年代初頭、アメリカ・シカゴのアンダーグラウンドクラブシーン</span>から誕生</p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p><span class="keyword">The Warehouse</span> - シカゴの中心的クラブ</p>
+              <p><span class="icon">🎧</span> <span class="highlight">フランキー・ナックルズ</span>（Frankie Knuckles）は「ハウスのゴッドファーザー」と称される</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>1983年：Warehouseが閉店→ナックルズは自身のクラブPower Plantを開業</p>
+              <p><span class="icon">🎵</span> <span class="keyword">「Music Box」</span>クラブではロン・ハーディが革新的なプレイを開始</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>「We Play <span class="highlight">House Music</span>」という張り紙がジャンル名の由来に</p>
+            </div>
+          </div>
+          
+          <div class="glass-box">
+            <p>初期ハウスミュージックの特徴：</p>
+            <p><span class="circle"></span>ディスコの4つ打ちビートをさらに機械的に強調</p>
+            <p><span class="circle"></span>電子楽器の導入</p>
+            <p><span class="circle"></span>「ディスコが終焉を迎えた後、その続きを担った」</p>
+          </div>
+          
+          <div class="bubble">
+            <p>影響を受けたジャンル：</p>
+            <p>✓ フィラデルフィアやサルソウル系のソウルフルなディスコ</p>
+            <p>✓ エレクトロファンク（Afrika Bambaataaなど）</p>
+            <p>✓ イタロディスコ、ユーロビート</p>
+            <p>✓ クラフトワーク代表するエレクトロニック・ミュージック</p>
+          </div>
+          
+          <div class="banner">
+            <p>1984年：ジェシー・ソーンダース「On and On」</p>
+            <p>「史上初のハウスレコード」と称される</p>
+          </div>
+          
+          <div class="artists-box">
+            <p>初期ハウスシーンの主要人物：</p>
+            <p><span class="icon">👑</span>フランキー・ナックルズ、ロン・ハーディ</p>
+            <p><span class="icon">👑</span>ジェシー・ソーンダース、チップE</p>
+            <p><span class="icon">👑</span>ジョー・スムース、スティーブ・"シルク"・ハーリー</p>
+            <p><span class="icon">👑</span>ファーリー・"ジャックマスター"・ファンク</p>
+            <p><span class="icon">👑</span>マーシャル・ジェファーソン、Phutureのメンバー</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🌍</span>1980年代後半～1990年代初頭の拡大
+          </h2>
+          
+          <div class="bubble">
+            <p>1980年代後半：<span class="highlight">シカゴから世界へ急速に拡大</span></p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>1986年：シカゴ産「Love Can't Turn Around」が英国チャートで成功</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>1987年：スティーブ・"シルク"・ハーリーの「Jack Your Body」が全英シングルチャート1位</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>1988年：<span class="keyword">「セカンド・サマー・オブ・ラブ」</span></p>
+              <p>アシッド・ハウスとレイブカルチャーが若者文化の中心に</p>
+              <p><span class="icon">😊</span>スマイリーフェイスがアシッド・ハウスのシンボルに</p>
+            </div>
+          </div>
+          
+          <div class="glass-box">
+            <p>ヨーロッパでの発展：</p>
+            <p><span class="circle"></span>イギリスを中心に熱狂的に受容</p>
+            <p><span class="circle"></span>違法な野外レイブパーティーが各地で開催</p>
+            <p><span class="circle"></span>Ministry of Sound（1991年開店）やHaçiendaがハウス／レイブの聖地に</p>
+          </div>
+          
+          <div class="banner">
+            <p>ニューヨーク・ハウス（ガラージュ・ハウス）</p>
+          </div>
+          
+          <div class="bubble">
+            <p>特徴：</p>
+            <p>✓ シカゴハウスよりもディスコに近いスタイル</p>
+            <p>✓ ゴスペルに影響を受けたピアノリフ</p>
+            <p>✓ 力強い女性ボーカル</p>
+            <p>✓ よりソウルフルでディープな音楽性</p>
+          </div>
+          
+          <div class="artists-box">
+            <p>拠点：<span class="keyword">Paradise Garage</span>（1977～1987年）や<span class="keyword">Zanzibar</span></p>
+            <p>代表的DJなど：</p>
+            <p><span class="icon">🎧</span>ラリー・レヴァン（Larry Levan）</p>
+            <p><span class="icon">🎧</span>トニー・ハンフリーズ</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 中央カラム -->
+      <div class="column">
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🌟</span>デトロイト・テクノとの関係
+          </h2>
+          
+          <div class="bubble">
+            <p>デトロイトではハウスと同期する形で<span class="highlight">テクノの革命</span>が進行</p>
+          </div>
+          
+          <div class="glass-box">
+            <p>「ベルビル3部作」：</p>
+            <p><span class="circle"></span>デリック・メイ</p>
+            <p><span class="circle"></span>フアン・アトキンス</p>
+            <p><span class="circle"></span>ケビン・サンダーソン</p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>デトロイト・テクノの特徴：</p>
+              <p>より機械的で未来志向のエレクトロニックダンスミュージック</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>ケビン・サンダーソンはシカゴのハウスに接近した作風も</p>
+              <p>Inner Cityの「Big Fun」（1988年）はボーカル入りのハウス・トラックとして世界的ヒット</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>デリック・メイ「Strings of Life」(1987年)</p>
+              <p>インストゥルメンタルながらピアノリフが印象的なダンスアンセム</p>
+              <p><span class="highlight">ハウスとテクノ両方の古典</span>として位置づけられる</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🔄</span>1990年代の多様化と商業化
+          </h2>
+          
+          <div class="bubble">
+            <p>1990年代：<span class="highlight">ハウスミュージックの多様化と商業的成功</span></p>
+          </div>
+          
+          <div class="glass-box">
+            <p>登場した主なサブジャンル：</p>
+            <p><span class="circle"></span><span class="keyword">プログレッシブ・ハウス</span>：長尺でドラマチックな展開</p>
+            <p><span class="circle"></span><span class="keyword">テックハウス</span>：テクノとハウスの中間に位置するスタイル</p>
+            <p><span class="circle"></span><span class="keyword">フレンチ・ハウス</span>：古いディスコやソウルからサンプリング</p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>プログレッシブ・ハウス：1992年頃～</p>
+              <p>代表アーティスト：レフトフィールド「Not Forgotten」</p>
+              <p>ハウス、テクノ、レゲエ的ダブなど多様な要素を含むスタイル</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>テックハウス：90年代半ば～</p>
+              <p>ロンドンのClink StreetやWiggleといったパーティーで育まれる</p>
+              <p>シカゴハウスのグルーヴ＋デトロイトテクノの質感</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>フレンチ・ハウス：90年代後半～</p>
+              <p>代表アーティスト：<span class="keyword">ダフト・パンク</span>「Da Funk」（1995年）</p>
+              <p>カシアス、スターダスト「Music Sounds Better With You」(1998年)</p>
+            </div>
+          </div>
+          
+          <div class="banner">
+            <p>クラブ音楽の大衆文化への浸透</p>
+          </div>
+          
+          <div class="bubble">
+            <p>✓ アンダーワールド「Born Slippy .NUXX」(1996年)が映画『トレインスポッティング』で使用</p>
+            <p>✓ サーシャ＆ディグウィードがロックフェスの大トリを務める</p>
+            <p>✓ 日本では<span class="keyword">Liquid Room</span>が1994年開業、テクノ・ハウスシーンの中心地に</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🎵</span>2000年代以降の発展とEDMブーム
+          </h2>
+          
+          <div class="bubble">
+            <p>2000年代：<span class="highlight">デジタル技術の進歩とEDMブーム</span></p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>エレクトロ・ハウスの台頭：2000年代中盤～</p>
+              <p>ベニー・ベナッシ「Satisfaction」(2002年)が先駆け</p>
+              <p>Deadmau5やSkrillexが北米で人気に</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>ハウスとポップスの融合：</p>
+              <p>デヴィッド・ゲッタ、カルヴィン・ハリス、スウェディッシュ・ハウス・マフィア</p>
+              <p>「Don't You Worry Child」(2012年)は全英1位・全米トップ10入り</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>大型フェスの拡大：</p>
+              <p>Tomorrowland（2005年～）</p>
+              <p>Ultra Music Festival、Electric Daisy Carnival</p>
+            </div>
+          </div>
+          
+          <div class="glass-box">
+            <p>2010年代後半：<span class="keyword">ロウファイ・ハウス</span>の台頭</p>
+            <p><span class="circle"></span>ハウスの原初的な質感や90年代的懐古要素</p>
+            <p><span class="circle"></span>インターネット上のアンダーグラウンドシーンから人気に</p>
+            <p><span class="circle"></span>代表：DJ Seinfeld、DJ Boring、Ross From Friends</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右カラム -->
+      <div class="column">
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🔮</span>現代のハウスシーン（2020年代）
+          </h2>
+          
+          <div class="bubble">
+            <p>2020年代：<span class="highlight">再評価と新展開の時期</span></p>
+          </div>
+          
+          <div class="glass-box">
+            <p>新世代のスター：</p>
+            <p><span class="circle"></span><span class="keyword">フレッド・アゲイン..</span> (Fred again..)</p>
+            <p>日常の音声サンプルやエモーショナルなメロディを取り入れた作風</p>
+            <p><span class="circle"></span><span class="keyword">ペギー・グー</span> (Peggy Gou)</p>
+            <p>ハウスのグルーヴィーさとアジア的感性を融合</p>
+            <p><span class="circle"></span><span class="keyword">Bicep</span></p>
+            <p>ブレイクビートやトランス的要素を取り入れたレイヴライクな作風</p>
+          </div>
+          
+          <div class="banner">
+            <p>商業化とオリジナル精神の関係性</p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>ビヨンセ『Renaissance』(2022年)</p>
+              <p>シカゴハウスやガラージュハウスのサウンドを取り入れたポップアルバム</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>ハニー・ディジョン（Honey Dijon）</p>
+              <p>シカゴハウスの伝統を継承しつつ現代のファッション界とクロスオーバー</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>SNSと復興現象</p>
+              <p>TikTokでの80-90年代ハウストラックのバイラルヒット</p>
+            </div>
+          </div>
+          
+          <div class="bubble">
+            <p>ストリーミング時代の特徴：</p>
+            <p>✓ 過去40年の膨大なハウス名曲がワンクリックで視聴可能</p>
+            <p>✓ 若者のジャンル横断的な音楽消費</p>
+            <p>✓ SoundCloudやYouTubeが新人発掘の場に</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">💫</span>ハウスミュージックの影響力
+          </h2>
+          
+          <div class="bubble">
+            <p><span class="highlight">ポップスやR&B、ヒップホップへの多大な影響</span></p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>80-90年代：マドンナ「Vogue」(1990年)</p>
+              <p>ジャネット・ジャクソン、ペット・ショップ・ボーイズなどがハウス要素を採用</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>90年代：ロビン・S「Show Me Love」(1993年)</p>
+              <p>Technotronic「Pump Up the Jam」(1989年)</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>近年：ドレイク『Honestly, Nevermind』(2022年)</p>
+              <p>ビヨンセ『Renaissance』(2022年)</p>
+            </div>
+          </div>
+          
+          <div class="glass-box">
+            <p>ハウスはリズムパターン、曲構成、リミックス文化など様々な形で現代音楽の基盤に</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">
+            <span class="icon">🚀</span>今後の展望
+          </h2>
+          
+          <div class="glass-box">
+            <p>テクノロジーの進歩：</p>
+            <p><span class="circle"></span>AI（人工知能）の音楽制作への活用</p>
+            <p><span class="circle"></span>VR/メタバース空間でのクラブイベント</p>
+          </div>
+          
+          <div class="bubble">
+            <p>グローバルなハウスサウンドの台頭：</p>
+            <p>✓ <span class="keyword">アマピアノ</span>（Amapiano）：南アフリカ発のディープハウス派生</p>
+            <p>✓ アフロハウス、ラテンハウス</p>
+            <p>✓ 中東やアジアの伝統音楽との融合</p>
+          </div>
+          
+          <div class="banner">
+            <p>ハウスミュージックの精神性</p>
+          </div>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <p>「人種・性的指向を超えて皆が一つの音楽で繋がる」というユニティの精神</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>DJたちが新しい音を追求して常にシーンを刷新していくクリエイティビティ</p>
+            </div>
+            
+            <div class="timeline-item">
+              <p>四つ打ちのビートに乗せて人々を踊らせる普遍的な魅力</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      出典: Wikipedia, Recording Arts, Beatportal, Pitchfork, 他
+    </footer>
+  </div>
+</body>
+</html>
