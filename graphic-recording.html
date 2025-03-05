@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ハウスミュージック制作ガイド（中上級編）</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+        
+        :root {
+            --fashion-1: #593C47;
+            --fashion-2: #F2E63D;
+            --fashion-3: #F2C53D;
+            --fashion-4: #F25C05;
+            --fashion-5: #F24405;
+            --text-dark: #334155;
+            --text-subtitle: #475569;
+            --text-heading: #1e40af;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Zen Kurenaido', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed var(--fashion-1);
+            padding-bottom: 15px;
+        }
+        
+        .title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--fashion-1), var(--fashion-5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+            position: relative;
+        }
+        
+        .title::after {
+            content: "🎵";
+            position: absolute;
+            right: -35px;
+            top: -5px;
+        }
+        
+        .date {
+            font-family: 'Yomogi', cursive;
+            color: var(--text-subtitle);
+            font-size: 14px;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+            min-width: 30%;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .kick-card {
+            border-color: var(--fashion-1);
+        }
+        
+        .bass-card {
+            border-color: var(--fashion-5);
+        }
+        
+        .pad-card {
+            border-color: var(--fashion-3);
+        }
+        
+        .lead-card {
+            border-color: var(--fashion-2);
+        }
+        
+        .percussion-card {
+            border-color: var(--fashion-4);
+        }
+        
+        .fx-card {
+            border-color: var(--fashion-3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-family: 'Kaisei Decol', serif;
+            color: var(--text-heading);
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px dashed;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title .icon {
+            margin-right: 8px;
+            font-size: 22px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            background: linear-gradient(to bottom, transparent 60%, var(--fashion-2) 60%);
+            padding: 0 2px;
+        }
+        
+        .emphasis {
+            color: var(--fashion-5);
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: rgba(242, 230, 60, 0.2);
+            border-left: 3px solid var(--fashion-2);
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+        }
+        
+        .arrow {
+            position: relative;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .arrow::before {
+            content: "";
+            width: 80%;
+            height: 2px;
+            background-color: var(--fashion-4);
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+        
+        .arrow::after {
+            content: "▼";
+            color: var(--fashion-4);
+            font-size: 12px;
+            position: absolute;
+            bottom: -10px;
+        }
+        
+        .bubble {
+            background-color: rgba(242, 92, 5, 0.1);
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: rgba(242, 92, 5, 0.1) transparent transparent;
+        }
+        
+        .eq-graph {
+            height: 60px;
+            margin: 10px 0;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        
+        .eq-bar {
+            width: 8px;
+            background-color: var(--fashion-3);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .eq-label {
+            position: absolute;
+            bottom: -20px;
+            font-size: 10px;
+            transform: translateX(-50%);
+            color: var(--text-subtitle);
+        }
+        
+        .rhythm-pattern {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        
+        .beat {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+        }
+        
+        .kick-beat {
+            background-color: var(--fashion-1);
+        }
+        
+        .clap-beat {
+            background-color: var(--fashion-4);
+        }
+        
+        .hat-beat {
+            background-color: var(--fashion-3);
+            transform: scale(0.8);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-subtitle);
+            border-top: 1px dashed var(--fashion-1);
+            padding-top: 15px;
+        }
+        
+        /* 手書き風の装飾 */
+        .hand-drawn {
+            position: relative;
+        }
+        
+        .hand-drawn::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid;
+            border-color: inherit;
+            border-radius: 15px;
+            transform: rotate(-0.5deg);
+            z-index: -1;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">ハウスミュージック制作ガイド（中上級編）</h1>
+            <div class="date">2025.03.05 📌</div>
+        </div>
+        
+        <div class="content">
+            <!-- 左カラム -->
+            <div class="column">
+                <div class="card kick-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">🥁</span>キック（Kick）</h2>
+                    <p>高品質な低音サンプルを選ぶことから始めよう。低域が弱いキックを無理に補正するより、最初から良い音色を使うのが効率的！</p>
+                    
+                    <div class="note">
+                        キックはヘッドルーム（余裕）を数dB確保した音量に設定し、他の要素より<span class="emphasis">常に土台</span>になるようにバランスを取ろう
+                    </div>
+                    
+                    <p class="keyword">EQ処理のポイント</p>
+                    <div class="eq-graph">
+                        <div class="eq-bar" style="height: 20px;"></div>
+                        <div class="eq-bar" style="height: 10px;"></div>
+                        <div class="eq-bar" style="height: 30px;"></div>
+                        <div class="eq-bar" style="height: 15px;"></div>
+                        <div class="eq-bar" style="height: 40px;"></div>
+                        <div class="eq-bar" style="height: 25px;"></div>
+                        <div class="eq-label" style="left: 8%;">30Hz↓カット</div>
+                        <div class="eq-label" style="left: 25%;">120Hz UP</div>
+                        <div class="eq-label" style="left: 43%;">400Hz↓</div>
+                        <div class="eq-label" style="left: 60%;">500-700Hz↓</div>
+                        <div class="eq-label" style="left: 80%;">4kHz UP</div>
+                    </div>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">"thump"感</span>（腹にくる低音）は120Hz付近を少し持ち上げて表現。ただしベースと被るので注意！
+                    </div>
+                    
+                    <p class="keyword">コンプレッサー設定</p>
+                    <ul>
+                        <li>アタック：約3-4ms</li>
+                        <li>比率：4:1程度</li>
+                        <li>ゲインリダクション：3-4dB</li>
+                        <li>リリース：150-200ms程度</li>
+                    </ul>
+                    
+                    <div class="note">
+                        他のトラック（シンセやパーカッション）の不要な低音はハイパスEQで必ずカットして、キックの低域をマスキングしないようにしよう！
+                    </div>
+                </div>
+                
+                <div class="card lead-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">🎹</span>リード（Lead / Pluck）</h2>
+                    <p>曲の顔となるメインメロディやリフを担当するパート。独自性を出すためプリセットをそのまま使わず、細部までこだわろう！</p>
+                    
+                    <div class="note">
+                        モノフォニック（単音）リードには<span class="keyword">ポルタメント</span>（音程の滑らかな遷移）を設定し、フレーズに抑揚を付けよう
+                    </div>
+                    
+                    <p class="emphasis">プラック系リードの作り方</p>
+                    <p>ベースと同様にフィルターエンベロープでアタックに瞬発力を持たせると歯切れの良いリフが作れる</p>
+                    
+                    <div class="bubble">
+                        アルペジエイター機能を活用！16分音符単位でコード構成音を上下させるパターンや、3連符で跳ねるフレーズなど
+                    </div>
+                    
+                    <p class="keyword">フィルター・スイープ効果</p>
+                    <p>フィルターのカットオフをLFOやエンベロープで周期的に変化させ、リードの明るさが周期的にうねるような効果を出そう</p>
+                    
+                    <div class="arrow"></div>
+                    
+                    <p>特にブレイクなどでリード音が徐々に明瞭になっていく（カットオフが開いていく）演出によく使われる効果</p>
+                </div>
+            </div>
+            
+            <!-- 中央カラム -->
+            <div class="column">
+                <div class="card bass-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">🔊</span>ベース（Bass）</h2>
+                    <p>ハウスミュージックの心臓部！プラック系のミッドベースとサブベースを使い分けるか、レイヤーで両方用いると効果的</p>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">サブベース</span>：曲の土台となる超低域（20～200Hz）を担当。純粋なサイン波などシンプルな波形で太い重みを提供
+                    </div>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">ミッドレンジ/プラックベース</span>：100～500Hz程度を主体とし、明瞭さやリズムの輪郭を与える
+                    </div>
+                    
+                    <p class="keyword">プラック音色の作り方</p>
+                    <ol>
+                        <li>鋸波オシレーターにローパスフィルタをかける</li>
+                        <li>カットオフを即座に減衰するエンベロープでモジュレート</li>
+                        <li>必要に応じフィルタのドライブやサチュレーションを加え、倍音を増やす</li>
+                    </ol>
+                    
+                    <div class="note">
+                        サブベースはモノラルで再生し（ステレオに広げない）、不要な高域はローパスでカットして低音に特化させよう
+                    </div>
+                    
+                    <p class="keyword">サイドチェイン・コンプレッション</p>
+                    <p>ベース（や他の要素）をキックに連動してわずかに溶け込ませる（キックが鳴る瞬間ベースの音量を瞬間的に下げる）と、両者が衝突せずに力強いローエンドが得られる</p>
+                    
+                    <div class="arrow"></div>
+                    
+                    <p>この<span class="emphasis">「ポンピング」効果</span>（キックに合わせて音が押し引きされる揺れ感）が特にフレンチハウスなどで顕著な独特のグルーヴ感を生み出す</p>
+                </div>
+                
+                <div class="card percussion-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">🥢</span>パーカッション（Percussion）</h2>
+                    <p>4つ打ちキックに加えてリズムを彩るパーカッション類も、ハウスではグルーヴ形成の要となる重要なパート</p>
+                    
+                    <p class="keyword">典型的な配置パターン</p>
+                    <div class="rhythm-pattern">
+                        <div class="beat kick-beat">K</div>
+                        <div class="beat hat-beat">H</div>
+                        <div class="beat clap-beat">C</div>
+                        <div class="beat hat-beat">H</div>
+                        <div class="beat kick-beat">K</div>
+                        <div class="beat hat-beat">H</div>
+                        <div class="beat clap-beat">C</div>
+                        <div class="beat hat-beat">H</div>
+                    </div>
+                    
+                    <ul>
+                        <li>クローズド・ハイハット → 各拍の裏拍（8分音符の刻み）</li>
+                        <li>オープン・ハイハット → 小節の後半（2拍目や4拍目の裏）</li>
+                        <li>クラップ/スネア → 2拍目と4拍目（バックビート）</li>
+                        <li>ライドシンバル → エネルギッシュなパートで16分音符刻み</li>
+                    </ul>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">スウィング（シャッフル）</span>を活用しよう！機械的に16分音符を均等に並べるのではなく、奇数連打と偶数連打のタイミングを若干ズラすことで跳ね感を出す
+                    </div>
+                    
+                    <p class="keyword">エフェクト処理</p>
+                    <ul>
+                        <li>軽くコンプレッサーをかけて全体をひとつのグルーヴに"グルーピング"</li>
+                        <li>プレートリバーブを薄くかけて生感を足す</li>
+                        <li>ディレイで左右に跳ねさせて空間を広げる</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 右カラム -->
+            <div class="column">
+                <div class="card pad-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">🎵</span>パッド（Pad）</h2>
+                    <p>和音（コード）を担当し、曲に厚みや雰囲気を与える要素。中上級者は複雑な拡張コード（7thや9thなど）や分数コードを使って深みのある和声を作ろう</p>
+                    
+                    <p class="keyword">音色設定のコツ</p>
+                    <ul>
+                        <li>アタックを緩やかに設定し、サスティンを高めたエンベロープで音がゆっくり立ち上がり持続するよう調整</li>
+                        <li>複数のオシレーターをデチューンさせて厚みを出す</li>
+                        <li>オクターブ違いでレイヤーを重ねる（1オクターブ上に同じ和音パートを重ねるなど）</li>
+                    </ul>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">リバーブとディレイが鍵！</span> ホール系リバーブでパッドに広がりと残響を与え、空間的な奥行きを演出しよう
+                    </div>
+                    
+                    <div class="note">
+                        ディープハウス系では温かみのあるエレピ/オルガン系のパッドやアナログシンセの柔らかいパッド音が好まれる
+                    </div>
+                    
+                    <p class="keyword">EQ処理のポイント</p>
+                    <ul>
+                        <li>パッドは中高域が主体</li>
+                        <li>他のリードやボーカルを邪魔しないよう300Hz以下をカット</li>
+                        <li>高域も過度にシャープであれば上げすぎないように調整</li>
+                    </ul>
+                </div>
+                
+                <div class="card fx-card hand-drawn">
+                    <h2 class="section-title"><span class="icon">✨</span>FX（エフェクト）</h2>
+                    <p>効果音的なFXはトラックにメリハリをつけ、展開をドラマチックにする。派手になり過ぎないよう音量バランスに注意！</p>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">ライザー（上昇音）</span>：ピッチやフィルターを上昇させていく効果音。主にビルドアップで緊張感を高めるのに使う
+                    </div>
+                    
+                    <p>例：1～2小節かけてノイズ音のフィルターを徐々に開きつつ音量とピッチを上げていく → ドロップ直前にピークへ</p>
+                    
+                    <div class="bubble">
+                        <span class="emphasis">ホワイトノイズスウィープ</span>：フィルターのカットオフを下げたり上げたりして「シュー」という風切り音に変化を付ける手法
+                    </div>
+                    
+                    <p>ブレイク明けやサビ突入時に「ブワッ」と開放感を出したり、逆に曲中で一瞬フィルターを閉じて「こもった」効果を出してから一気に開く</p>
+                    
+                    <div class="note">
+                        インパクト音（ヒット音）も効果的！落雷のようなシンバルクラッシュや、一発で空間をリセットする大きなバスドラムヒット、逆再生シンバルなど
+                    </div>
+                    
+                    <p class="keyword">エフェクト使用時のポイント</p>
+                    <ul>
+                        <li>セクション転換点で挿入して区切りを明確に</li>
+                        <li>リバーブを長めにかけて全体に溶け込ませる</li>
+                        <li>必要最低限のFXでメリハリを付け、使いすぎないこと</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 追加コンテンツ - トラックの組み合わせとリズム -->
+        <div class="content" style="margin-top: 40px;">
+            <h2 style="font-family: 'Kaisei Decol', serif; font-size: 28px; color: var(--fashion-1); text-align: center; margin-bottom: 30px; position: relative;">
+                各トラックの組み合わせとリズムの作り方
+                <span style="position: absolute; right: 20px; top: 0; font-size: 24px;">🎧 💫</span>
+            </h2>
+            
+            <!-- グルーヴの作成 -->
+            <div class="card hand-drawn" style="border-color: var(--fashion-2); margin-bottom: 30px;">
+                <h2 class="section-title" style="border-color: var(--fashion-2);"><span class="icon">🔄</span>グルーヴの作成</h2>
+                
+                <p>複数のトラックを組み合わせる際には、それぞれのリズムのハマり具合（グルーヴ）を意識しよう。機械的にクオンタイズされたリズムよりも、微妙にズレたタイミングが生む「ノリ」がダンスミュージックでは重要だ！</p>
+                
+                <div class="bubble" style="background-color: rgba(242, 230, 60, 0.1);">
+                    <span class="emphasis" style="color: var(--fashion-2);">スウィング</span>を適用すると、符点リズムのような揺らぎが生まれ踊れるフィールに！16分音符の偶数番目をわずかに遅らせる処理で、設定値を上げるほど跳ねた感じが強調される
+                </div>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; margin: 20px 0;">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-weight: bold; margin-bottom: 5px;">通常リズム</div>
+                        <div style="display: flex; justify-content: space-between; width: 80%; margin: 0 auto;">
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-1); border-radius: 50%;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-1); border-radius: 50%;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-1); border-radius: 50%;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-1); border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    <div style="font-size: 24px; color: var(--fashion-4);">→</div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-weight: bold; margin-bottom: 5px;">スウィング適用</div>
+                        <div style="display: flex; justify-content: space-between; width: 80%; margin: 0 auto;">
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-4); border-radius: 50%;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-4); border-radius: 50%; margin-left: -5px;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-4); border-radius: 50%;"></div>
+                            <div style="width: 10px; height: 10px; background-color: var(--fashion-4); border-radius: 50%; margin-left: -5px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    キックとベースなど低音の要素はタイトに同期させ、ビートの土台がぶれないようにすることが大切！
+                </div>
+                
+                <p class="keyword">グルーヴ作りのコツ</p>
+                <ul>
+                    <li>自分が体を揺らしてみて心地よいか確認する</li>
+                    <li>各要素の音価（長さ）を調整する</li>
+                    <li>あえて16分の隙間にゴーストノート的なパーカッションを忍ばせる</li>
+                    <li>細部の工夫で"走る感じ"や"溜める感じ"を自由に演出</li>
+                </ul>
+            </div>
+            
+            <!-- レイヤリング -->
+            <div class="card hand-drawn" style="border-color: var(--fashion-3); margin-bottom: 30px;">
+                <h2 class="section-title" style="border-color: var(--fashion-3);"><span class="icon">📚</span>レイヤリング</h2>
+                
+                <p>サウンドに厚みを出すには<span class="emphasis">レイヤー（音重ね）の技術</span>が不可欠。ただ単に音を重ねるのではなく、互いの長所を活かして一つの豊かな音像にまとめよう！</p>
+                
+                <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <div style="text-align: center; width: 30%;">
+                        <div style="height: 80px; background: linear-gradient(to bottom, var(--fashion-2), transparent); border-radius: 5px; margin-bottom: 5px;"></div>
+                        <div style="font-size: 12px;">高音レイヤー<br>（アタック担当）</div>
+                    </div>
+                    <div style="text-align: center; width: 30%;">
+                        <div style="height: 80px; background: linear-gradient(to bottom, transparent 20%, var(--fashion-3) 20%, transparent 80%); border-radius: 5px; margin-bottom: 5px;"></div>
+                        <div style="font-size: 12px;">中音レイヤー<br>（ボディ担当）</div>
+                    </div>
+                    <div style="text-align: center; width: 30%;">
+                        <div style="height: 80px; background: linear-gradient(to bottom, transparent 60%, var(--fashion-5) 60%); border-radius: 5px; margin-bottom: 5px;"></div>
+                        <div style="font-size: 12px;">低音レイヤー<br>（基音担当）</div>
+                    </div>
+                </div>
+                
+                <div class="bubble" style="background-color: rgba(242, 196, 60, 0.1);">
+                    <span class="emphasis" style="color: var(--fashion-3);">シンセのリード例</span>：異なる波形や音色を2～3種類重ねて各レイヤーをオクターブ違いに配置し、高音から低音までバランスよくカバー
+                </div>
+                
+                <p class="keyword">レイヤー音の整理法</p>
+                <ul>
+                    <li>各レイヤー毎に不要な帯域をEQでカット</li>
+                    <li>役割ごとに周波数を分担（アタック/ボディ/基音など）</li>
+                    <li>レイヤー同士をまとめてグループ化し、軽くコンプレッション</li>
+                    <li>テープサチュレーション（軽い歪み）を与えると接着効果で一体感アップ</li>
+                </ul>
+                
+                <div class="note">
+                    ベースの場合はサブ用の正弦波レイヤーに加え、中音域用に別の音色をオクターブ上で重ねることで、小さいスピーカーでも存在感が出る音に！
+                </div>
+                
+                <p>過度なレイヤーは濁りの原因にもなるため、使う音色の数は最小限に留め、役割が被っているレイヤーがないか常にチェックしよう。</p>
+            </div>
+            
+            <!-- ミックスの基本 -->
+            <div class="card hand-drawn" style="border-color: var(--fashion-4);">
+                <h2 class="section-title" style="border-color: var(--fashion-4);"><span class="icon">🎚️</span>ミックスの基本</h2>
+                
+                <p>トラックをまとめてミックスする段階では、周波数帯域の整理とダイナミクスコントロールが肝心。各要素がそれぞれの<span class="emphasis">居場所</span>（周波数領域）を持つように調整しよう！</p>
+                
+                <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-weight: bold; margin-top: 0;">周波数帯域の整理</p>
+                    <div style="display: flex; height: 100px; background: linear-gradient(to right, var(--fashion-5), var(--fashion-4), var(--fashion-3), var(--fashion-2)); border-radius: 5px; position: relative; margin-bottom: 20px;">
+                        <div style="position: absolute; bottom: -20px; left: 10%; font-size: 11px;">低域<br>キック/ベース</div>
+                        <div style="position: absolute; bottom: -20px; left: 40%; font-size: 11px;">中低域<br>シンセ/ボーカル</div>
+                        <div style="position: absolute; bottom: -20px; left: 70%; font-size: 11px;">中高域<br>スネア/ボーカル</div>
+                        <div style="position: absolute; bottom: -20px; right: 5%; font-size: 11px;">高域<br>ハイハット/シンバル</div>
+                    </div>
+                </div>
+                
+                <div class="bubble" style="background-color: rgba(242, 92, 5, 0.1);">
+                    <span class="emphasis" style="color: var(--fashion-4);">サイドチェイン・コンプレッション</span>：キックの音をトリガーにして他のトラック（主にベースやパッド）を瞬間的に圧縮。キックの瞬間だけ他がわずかに音量ダウンし、結果としてキックが明瞭に際立つ！
+                </div>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <div style="font-weight: bold; margin-bottom: 5px;">サイドチェイン・ポンピング効果</div>
+                    <div style="position: relative; height: 60px; background-color: #f8f9fa; border-radius: 5px;">
+                        <div style="position: absolute; width: 100%; height: 20px; border-bottom: 2px dashed var(--fashion-3); top: 10px;"></div>
+                        <div style="position: absolute; height: 40px; width: 10px; background-color: var(--fashion-5); border-radius: 5px 5px 0 0; bottom: 0; left: 5%;"></div>
+                        <div style="position: absolute; height: 40px; width: 10px; background-color: var(--fashion-5); border-radius: 5px 5px 0 0; bottom: 0; left: 30%;"></div>
+                        <div style="position: absolute; height: 40px; width: 10px; background-color: var(--fashion-5); border-radius: 5px 5px 0 0; bottom: 0; left: 55%;"></div>
+                        <div style="position: absolute; height: 40px; width: 10px; background-color: var(--fashion-5); border-radius: 5px 5px 0 0; bottom: 0; left: 80%;"></div>
+                        <div style="position: absolute; width: 100%; height: 40px; bottom: 0; border-top: 2px solid var(--fashion-2);">
+                            <div style="position: absolute; width: 15%; height: 25px; left: 5%; border: 1px solid var(--fashion-2); border-bottom: none; border-top-left-radius: 50px; border-top-right-radius: 50px;"></div>
+                            <div style="position: absolute; width: 15%; height: 25px; left: 30%; border: 1px solid var(--fashion-2); border-bottom: none; border-top-left-radius: 50px; border-top-right-radius: 50px;"></div>
+                            <div style="position: absolute; width: 15%; height: 25px; left: 55%; border: 1px solid var(--fashion-2); border-bottom: none; border-top-left-radius: 50px; border-top-right-radius: 50px;"></div>
+                            <div style="position: absolute; width: 15%; height: 25px; left: 80%; border: 1px solid var(--fashion-2); border-bottom: none; border-top-left-radius: 50px; border-top-right-radius: 50px;"></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 11px;">
+                        <div>キック</div>
+                        <div>キック</div>
+                        <div>キック</div>
+                        <div>キック</div>
+                    </div>
+                </div>
+                
+                <p class="keyword">ミックスのチェックポイント</p>
+                <ul>
+                    <li>低音が出過ぎていないか</li>
+                    <li>高音が耳障りでないか</li>
+                    <li>中域が埋もれていないか</li>
+                    <li>リファレンストラック（目標とする音の曲）と聴き比べる</li>
+                    <li>必要以上に音圧を追い求めない</li>
+                </ul>
+                
+                <div class="note">
+                    クリアでダイナミックなミックスであれば、最終マスタリングで少し圧縮・リミッティングするだけで十分商業レベルの音圧に到達するはず！
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. 曲の展開の作り方 -->
+        <div class="content" style="margin-top: 40px;">
+            <h2 style="font-family: 'Kaisei Decol', serif; font-size: 28px; color: var(--fashion-1); text-align: center; margin-bottom: 30px; position: relative;">
+                曲の展開の作り方
+                <span style="position: absolute; right: 20px; top: 0; font-size: 24px;">🎼 📊</span>
+            </h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px;">
+                <!-- イントロ -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-1);">
+                    <h2 class="section-title" style="border-color: var(--fashion-1);"><span class="icon">🏁</span>イントロ（Intro）</h2>
+                    
+                    <p>ハウストラックのイントロはDJがミックスしやすいように構成するのが一般的。最初の8小節や16小節程度はリズム要素中心に！</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <p style="font-weight: bold; margin-top: 0; color: var(--fashion-1);">イントロの基本構成例</p>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li><span style="display: inline-block; width: 80px;">1-4小節</span>→ キックのみ</li>
+                            <li><span style="display: inline-block; width: 80px;">5-8小節</span>→ ハイハット追加</li>
+                            <li><span style="display: inline-block; width: 80px;">9-12小節</span>→ パーカッション追加</li>
+                            <li><span style="display: inline-block; width: 80px;">13-16小節</span>→ ベース追加</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bubble" style="background-color: rgba(89, 60, 71, 0.1);">
+                        32拍目（8小節目）の終わりなどにフィル（ドラムの装飾的なフレーズ）やFX音を入れて「これから主要パートに入る」という合図を作る
+                    </div>
+                    
+                    <p class="keyword">ポイント</p>
+                    <ul>
+                        <li>イントロだけで盛り上げすぎず適度なシンプルさを保つ</li>
+                        <li>長さは16小節程度が標準的（DJユースなら32小節）</li>
+                        <li>コードやパッドを入れる場合もフィルターでカットして控えめに</li>
+                    </ul>
+                </div>
+                
+                <!-- ビルドアップ -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-2);">
+                    <h2 class="section-title" style="border-color: var(--fashion-2);"><span class="icon">📈</span>ビルドアップ（Build-up）</h2>
+                    
+                    <p>ブレイクからドロップへ繋ぐ直前の盛り上げパートで、曲のテンションを一気に高める役割がある。様々な手法を駆使して緊張感を最大化！</p>
+                    
+                    <p class="keyword">フィルターオートメーション</p>
+                    <div style="display: flex; align-items: center; margin: 10px 0;">
+                        <div style="flex: 1; height: 30px; background: linear-gradient(to right, var(--fashion-2), transparent); border-radius: 5px; position: relative;">
+                            <div style="position: absolute; left: 10px; top: 5px; font-size: 12px; color: white;">低音あり</div>
+                        </div>
+                        <div style="margin: 0 10px;">→</div>
+                        <div style="flex: 1; height: 30px; background: linear-gradient(to right, transparent, var(--fashion-2)); border-radius: 5px; position: relative;">
+                            <div style="position: absolute; right: 10px; top: 5px; font-size: 12px; color: white;">低音なし</div>
+                        </div>
+                    </div>
+                    <p>徐々にローカット（ハイパスフィルタ）を強めて低音を薄くしていくと、音が軽くなり緊張が高まる</p>
+                    
+                    <div class="bubble" style="background-color: rgba(242, 230, 60, 0.1);">
+                        <span class="emphasis" style="color: var(--fashion-2);">スネアロール</span>：4分音符→8分→16分→32分と細かく連打するスネアを挿入し、テンポアップしているような錯覚と興奮を誘発
+                    </div>
+                    
+                    <div class="note">
+                        ビルドアップ後半ではキックを抜く！最後の1～2小節はあえてキックを止め、スネアロールやライザーだけにするとドロップでのインパクトが倍増
+                    </div>
+                    
+                    <p class="keyword">その他の演出テクニック</p>
+                    <ul>
+                        <li>ライザー音やノイズスウィープを背景で上昇</li>
+                        <li>リバーブやディレイを駆使して音をだんだん遠ざける</li>
+                        <li>直前に全サウンドを一瞬ミュートして無音の「タメ」を作る</li>
+                    </ul>
+                </div>
+                
+                <!-- ドロップ -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-5);">
+                    <h2 class="section-title" style="border-color: var(--fashion-5);"><span class="icon">💥</span>ドロップ（Drop）</h2>
+                    
+                    <p>曲中で最もエネルギーの高いパートで、多くの場合キックとベースが全面的に戻り主メロディやリフが展開する「聞かせどころ」！</p>
+                    
+                    <div class="bubble" style="background-color: rgba(242, 68, 4, 0.1);">
+                        重要なのは<span class="emphasis" style="color: var(--fashion-5);">前後との差をしっかり付けること</span>。直前のブレイク/ビルドアップでは控えめだった要素をここで一気に解放し、音数もダイナミクスも最大に！
+                    </div>
+                    
+                    <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <p style="font-weight: bold; margin-top: 0; color: var(--fashion-5);">典型的な4つ打ちハウスのドロップ構成</p>
+                        <ul>
+                            <li>力強い4つ打ちキック＋ベースライン</li>
+                            <li>印象的なリードリフまたはボーカルフレーズ</li>
+                            <li>メロディックな曲ならキャッチーなフレーズが展開</li>
+                            <li>テックハウス的アプローチなら太いベースリフと抜けの良いドラム</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="keyword">ドロップが単調にならないための工夫</p>
+                    <ul>
+                        <li>16小節のドロップなら、後半8小節でハイハットパターンを変える</li>
+                        <li>追加のパーカッションを入れる</li>
+                        <li>2拍目と4拍目のクラップにディレイを足す</li>
+                        <li>32小節ドロップの場合は中間で編曲上のBメロディや転調を入れる</li>
+                    </ul>
+                </div>
+                
+                <!-- ブレイクダウン -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-3);">
+                    <h2 class="section-title" style="border-color: var(--fashion-3);"><span class="icon">🌊</span>ブレイクダウン（Breakdown）</h2>
+                    
+                    <p>ドロップの熱狂から一度エネルギーを落とし、次の展開に備えて緩急を付ける部分。典型的にはドラムやベースを抜き、パッドやボーカルだけになる静かなパート。</p>
+                    
+                    <div class="bubble" style="background-color: rgba(242, 196, 60, 0.1);">
+                        <span class="emphasis" style="color: var(--fashion-3);">コーラス（サビ）</span>的な要素をもう一度じっくり聞かせたり、曲によっては全く新しい要素（ブリッジ的パート）を挿入する場合も
+                    </div>
+                    
+                    <p>例：プログレッシブハウスではブレイクダウンで壮大なパッドのコード進行とリードのソロを展開し、長めのビルドアップを経て2回目のドロップに繋ぐ構成が多い</p>
+                    
+                    <div class="note">
+                        完全に静かにし過ぎるとフロアの熱が冷めてしまうため、適度にスネアやFXでリズムの名残を感じさせつつ、観客の期待感を煽ろう
+                    </div>
+                    
+                    <p class="keyword">ブレイクダウンでの工夫</p>
+                    <ul>
+                        <li>フィルターを開閉して徐々に雰囲気を変える</li>
+                        <li>ボーカルにエフェクトをかけてビルドアップの合図にする</li>
+                        <li>2回目以降のドロップは最初より展開を変える</li>
+                        <li>楽器編成を引き算してクールダウンに向かわせるなど、全体の起伏を意識</li>
+                    </ul>
+                </div>
+                
+                <!-- アウトロ -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-4);">
+                    <h2 class="section-title" style="border-color: var(--fashion-4);"><span class="icon">🏁</span>アウトロ（Outro）</h2>
+                    
+                    <p>イントロ同様にDJが次の曲へミックスアウトしやすい構造に。基本的には曲の要素を順番に引いていき、最後はビートだけの状態で終わらせる。</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <p style="font-weight: bold; margin-top: 0; color: var(--fashion-4);">アウトロの基本構成例（16小節）</p>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                            <li><span style="display: inline-block; width: 80px;">1-8小節</span>→ メロディやコードをフェードアウト</li>
+                            <li><span style="display: inline-block; width: 80px;">9-16小節</span>→ ドラムループとベースのみに</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bubble" style="background-color: rgba(242, 92, 5, 0.1);">
+                        アウトロではリバーブやディレイのフェードアウトを活用し、消えていく要素に尾を引かせて余韻を作る
+                    </div>
+                    
+                    <p class="keyword">アウトロのポイント</p>
+                    <ul>
+                        <li>長さは16小節程度（DJユースなら32小節）</li>
+                        <li>最後の数拍でフィルインやFXを入れて次曲への切り替えポイントを明確に</li>
+                        <li>スッキリ簡素に終える（欲張って新しいフレーズを入れない）</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 曲構成の全体図 -->
+            <div style="width: 100%; height: 120px; background-color: white; border-radius: 12px; padding: 15px; margin: 20px 0; position: relative; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);">
+                <h3 style="text-align: center; margin-top: 0; font-family: 'Kaisei Decol', serif; color: var(--fashion-1);">ハウストラック典型的な曲構成フロー</h3>
+                <div style="display: flex; width: 100%; height: 60px; position: relative; margin-top: 20px;">
+                    <div style="flex: 1; background-color: var(--fashion-1); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">イントロ</div>
+                    <div style="flex: 0.5; background-color: var(--fashion-2); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">ビルド</div>
+                    <div style="flex: 1.5; background-color: var(--fashion-5); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">ドロップ1</div>
+                    <div style="flex: 1; background-color: var(--fashion-3); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">ブレイク</div>
+                    <div style="flex: 0.5; background-color: var(--fashion-2); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">ビルド</div>
+                    <div style="flex: 1.5; background-color: var(--fashion-5); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">ドロップ2</div>
+                    <div style="flex: 1; background-color: var(--fashion-4); opacity: 0.7; border-radius: 5px; display: flex; justify-content: center; align-items: center; color: white; margin: 0 2px;">アウトロ</div>
+                </div>
+                <div style="display: flex; width: 100%; position: relative;">
+                    <div style="flex: 1; text-align: center; font-size: 11px;">16小節</div>
+                    <div style="flex: 0.5; text-align: center; font-size: 11px;">8小節</div>
+                    <div style="flex: 1.5; text-align: center; font-size: 11px;">32小節</div>
+                    <div style="flex: 1; text-align: center; font-size: 11px;">16小節</div>
+                    <div style="flex: 0.5; text-align: center; font-size: 11px;">8小節</div>
+                    <div style="flex: 1.5; text-align: center; font-size: 11px;">32小節</div>
+                    <div style="flex: 1; text-align: center; font-size: 11px;">16小節</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4. ジャンルごとの違いと派生の方法 -->
+        <div class="content" style="margin-top: 40px;">
+            <h2 style="font-family: 'Kaisei Decol', serif; font-size: 28px; color: var(--fashion-1); text-align: center; margin-bottom: 30px; position: relative;">
+                ジャンルごとの違いと派生の方法
+                <span style="position: absolute; right: 20px; top: 0; font-size: 24px;">🏷️ 🔍</span>
+            </h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px;">
+                <!-- ディープハウス -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-1);">
+                    <h2 class="section-title" style="border-color: var(--fashion-1);"><span class="icon">🎵</span>ディープハウス</h2>
+                    
+                    <div style="position: absolute; top: 10px; right: 15px; font-size: 12px; background-color: var(--fashion-1); color: white; padding: 2px 8px; border-radius: 10px;">
+                        BPM 120前後
+                    </div>
+                    
+                    <p>ソウルフルで雰囲気重視のスタイル。暖かみのあるエレクトリックピアノのコードや、なめらかなパッドが多用され、全体に落ち着いたグルーヴを持つ。</p>
+                    
+                    <div class="bubble" style="background-color: rgba(89, 60, 71, 0.1);">
+                        ボーカルが入る場合は<span class="emphasis" style="color: var(--fashion-1);">ゴスペルやソウル影響下の感情的な歌声</span>がフィーチャーされることも特徴
+                    </div>
+                    
+                    <p class="keyword">制作面のポイント</p>
+                    <ul>
+                        <li>ジャズやファンクの要素をハウスビートに融合</li>
+                        <li>7th, 9thを含むテンションコード進行</li>
+                        <li>スラップしない丸いベース音色</li>
+                        <li>ハイハットも控えめなものを使用</li>
+                        <li>ウォームなプレートリバーブで空間に奥行きを与える</li>
+                    </ul>
+                    
+                    <div class="note">
+                        ミックスでは中低域（100～300Hz）に余裕を持たせて温かさをキープし、過度な高音エキサイターなどは避ける
+                    </div>
+                    
+                    <p class="keyword">派生系</p>
+                    <ul>
+                        <li>ボーカルを前面に出した<span class="emphasis">ソウルフルハウス</span></li>
+                        <li>よりミニマルでダビーな<span class="emphasis">ディープテック</span></li>
+                    </ul>
+                </div>
+                
+                <!-- テックハウス -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-5);">
+                    <h2 class="section-title" style="border-color: var(--fashion-5);"><span class="icon">⚙️</span>テックハウス</h2>
+                    
+                    <div style="position: absolute; top: 10px; right: 15px; font-size: 12px; background-color: var(--fashion-5); color: white; padding: 2px 8px; border-radius: 10px;">
+                        BPM 120～130
+                    </div>
+                    
+                    <p>テクノの持つ機械的な質感とハウスのグルーヴィさを融合したスタイル。リズム面では多彩なパーカッションが用いられ、ストイックで引き締まったビートを刻む。</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <p style="font-weight: bold; margin-top: 0; color: var(--fashion-5);">サウンドの特徴</p>
+                        <ul>
+                            <li>キックは太く短め</li>
+                            <li>ハイハットやクラップはドライで歯切れ良い</li>
+                            <li>余計な装飾を削ぎ落としたミニマル志向</li>
+                            <li>反復的でシンプルなベースフレーズ</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="keyword">制作テクニック</p>
+                    <ul>
+                        <li>空間系エフェクトは控えめに（リバーブやディレイを抑える）</li>
+                        <li>音の一発一発をタイトに聴かせる</li>
+                        <li>必要な広がりはステレオイメージャーで定位を調整</li>
+                        <li>サチュレータで歪みを足したベース</li>
+                        <li>ローパスフィルタをかけた上モノを小刻みにカットイン・アウト</li>
+                    </ul>
+                    
+                    <p class="keyword">派生系</p>
+                    <ul>
+                        <li>より攻撃的で低音重視の<span class="emphasis">ベースハウス</span></li>
+                        <li>よりミニマルでクリック音などを強調した<span class="emphasis">ミクロハウス</span></li>
+                    </ul>
+                </div>
+                
+                <!-- プログレッシブハウス -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-3);">
+                    <h2 class="section-title" style="border-color: var(--fashion-3);"><span class="icon">🌈</span>プログレッシブハウス</h2>
+                    
+                    <div style="position: absolute; top: 10px; right: 15px; font-size: 12px; background-color: var(--fashion-3); color: white; padding: 2px 8px; border-radius: 10px;">
+                        BPM 128前後
+                    </div>
+                    
+                    <p>メロディアスで展開が大きいのが特徴。曲が進むにつれて徐々に要素が積み重なり、長尺のビルドアップを経てクライマックスに達する構成が多い。</p>
+                    
+                    <div class="bubble" style="background-color: rgba(242, 196, 60, 0.1);">
+                        トランスからの影響も強く、<span class="emphasis" style="color: var(--fashion-3);">壮大でトランシーなシンセパッドやアルペジオ、感情的なコード進行</span>がしばしば用いられる
+                    </div>
+                    
+                    <p class="keyword">制作のポイント</p>
+                    <ul>
+                        <li>印象的なコード進行やリフを構築</li>
+                        <li>同じモチーフを繰り返しつつ8小節ごとに進化させる</li>
+                        <li>長いブレイクダウンで叙情的なブレイクを設けてから一気に盛り上げ直す</li>
+                        <li>パッドやリードに軽いディストーションをかけて上位ハーモニクスを増やす</li>
+                    </ul>
+                    
+                    <div class="note">
+                        トラック全体の流れ（プロット）が重視されるため、ストーリーを語るような意識で編曲すると良い。例：序盤は控えめ→中盤でピーク1→終盤でピーク2といった旅のような構成
+                    </div>
+                    
+                    <p>著名アーティストの例：Sasha、John Digweed、Eric Prydz など</p>
+                </div>
+                
+                <!-- フレンチハウス -->
+                <div class="card hand-drawn" style="flex: 1; min-width: 280px; border-color: var(--fashion-4);">
+                    <h2 class="section-title" style="border-color: var(--fashion-4);"><span class="icon">🇫🇷</span>フレンチハウス</h2>
+                    
+                    <p>ディスコやファンクのサンプリングを大胆に取り入れ、フィルター効果で独特の揺らめきを加えたスタイル。Daft Punkに代表される。</p>
+                    
+                    <div style="background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <p style="font-weight: bold; margin-top: 0; color: var(--fashion-4);">フィルターハウスの特徴</p>
+                        <p>70～80年代ディスコ音源のループにローパスフィルターをかけたり外したりして、サウンドに起伏を付ける手法が有名</p>
+                        <div style="display: flex; align-items: center; margin-top: 10px;">
+                            <div style="flex: 1; text-align: center;">
+                                <div style="height: 40px; background: linear-gradient(to top, var(--fashion-4) 20%, transparent 80%); border-radius: 5px;"></div>
+                                <div style="font-size: 11px; margin-top: 5px;">ブレイク<br>(こもった音)</div>
+                            </div>
+                            <div style="margin: 0 10px;">→</div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="height: 40px; background-color: var(--fashion-4); border-radius: 5px;"></div>
+                                <div style="font-size: 11px; margin-top: 5px;">ドロップ<br>(明るい音)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="keyword">制作テクニック</p>
+                    <ul>
+                        <li>ファンク/ディスコ系のループフレーズを細かくカットアップして再構築</li>
+                        <li>重厚な4つ打ちキックとディスコ風のベースラインを組み合わせる</li>
+                        <li>サイドチェイン・コンプレッションで"吸い込まれるような"ポンピング効果</li>
+                        <li>ビットクラッシャーやテープサチュレーションでLo-Fi感を演出</li>
+                        <li>ヴォコーダーでロボットボイスを使用</li>
+                    </ul>
+                    
+                    <div class="note">
+                        フレンチハウスはサンプリングセンスが肝心。著作権の問題もあるため、現代では生演奏でそれらしいフレーズを録音してサンプリング的に使う手法も
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 5. 最近のハウスアーティストの分析 -->
+        <div class="content" style="margin-top: 40
+    </div>
+</body>
+</html>
