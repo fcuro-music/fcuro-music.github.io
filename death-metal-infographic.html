@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デスメタルの歴史と音楽的進化</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+        
+        :root {
+            --fashion-1: #593C47;
+            --fashion-2: #F2E63D;
+            --fashion-3: #F2C53D;
+            --fashion-4: #F25C05;
+            --fashion-5: #F24405;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yomogi', cursive;
+            background-color: #f8f8f8;
+            color: #334155;
+            line-height: 1.4;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px dashed var(--fashion-1);
+        }
+        
+        .title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--fashion-1), var(--fashion-5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .date {
+            font-family: 'Zen Kurenaido', sans-serif;
+            font-size: 16px;
+            color: #475569;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1 1 30%;
+            min-width: 300px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--fashion-4);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--fashion-2), var(--fashion-5));
+        }
+        
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, var(--fashion-3) 40%);
+            padding: 0 2px;
+            font-weight: bold;
+        }
+        
+        .key-point {
+            border: 2px solid var(--fashion-4);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .key-point::before {
+            content: "重要";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: white;
+            padding: 0 5px;
+            color: var(--fashion-5);
+            font-weight: bold;
+        }
+        
+        .band-name {
+            font-weight: bold;
+            color: var(--fashion-1);
+        }
+        
+        .arrow {
+            width: 50px;
+            height: 25px;
+            margin: 10px auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .arrow::before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            border-right: 4px solid var(--fashion-4);
+            border-bottom: 4px solid var(--fashion-4);
+            transform: rotate(45deg);
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--fashion-2);
+            color: var(--fashion-1);
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .callout {
+            border-left: 5px solid var(--fashion-3);
+            padding-left: 10px;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        .chart {
+            width: 100%;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            position: relative;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+        
+        .bar {
+            width: 25px;
+            background: linear-gradient(to top, var(--fashion-1), var(--fashion-5));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+        
+        .bar::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        .hand-drawn-box {
+            border: 3px solid var(--fashion-1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+            border-style: dashed;
+        }
+        
+        .connection-line {
+            position: relative;
+            margin: 20px 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--fashion-4);
+        }
+        
+        .connection-line::before, .connection-line::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--fashion-4);
+        }
+        
+        .connection-line::before {
+            left: 0;
+            top: -4px;
+        }
+        
+        .connection-line::after {
+            right: 0;
+            top: -4px;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .image-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .note {
+            background-color: rgba(242, 198, 61, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .note::before {
+            content: "📝";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background-color: white;
+            padding: 0 5px;
+            border-radius: 50%;
+        }
+        
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 3px dashed var(--fashion-1);
+            text-align: center;
+            font-size: 12px;
+            color: #475569;
+        }
+        
+        /* 手描き風の要素 */
+        .hand-drawn {
+            position: relative;
+        }
+        
+        .hand-drawn::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 Q10,3 20,5 T40,5 T60,5 T80,5 T100,5' stroke='%23F25C05' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 100px 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .column {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">📀 デスメタルの歴史と音楽的進化 🎸</h1>
+            <div class="date">2025年3月8日</div>
+        </header>
+        
+        <div class="content">
+            <!-- 左カラム -->
+            <div class="column">
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🕰️</span>
+                        <span>1980年代: ジャンルの誕生</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <p>デスメタルは1980年代半ばに<span class="highlight">ヘヴィメタルの一派として地下シーン</span>から誕生しました。初期のデスメタルは、スラッシュメタルや初期ブラックメタルの延長線上にあり、<span class="highlight">激烈な速弾きギターリフやスピード感あるドラム</span>に支えられていました。</p>
+                        
+                        <div class="hand-drawn-box">
+                            <h3 style="color: var(--fashion-5); font-size: 16px;">草創期の代表的バンド</h3>
+                            <p>✅ <span class="band-name">ポゼスト (Possessed)</span></p>
+                            <p>✅ <span class="band-name">デス (Death)</span></p>
+                        </div>
+                        
+                        <p>彼らは<span class="hand-drawn">スラッシュ的な音作り</span>に加えて、従来にない<span class="highlight">低く唸るようなボーカル（デスボイス）と過激な歌詞テーマ</span>を導入し、デスメタルの原型を示しました。</p>
+                        
+                        <div class="callout">
+                            例えばポゼストが1985年に発表した「Seven Churches」は「Death Metal」という曲名を含み、邪悪な雰囲気とジェフ・ベセラの喉を絞るような咆哮で後続に多大な影響を与えました。
+                        </div>
+                        
+                        <div class="key-point">
+                            <p>1980年代後半までに、デスメタルは<span class="hand-drawn">低音域にうねるギターリフ</span>、<span class="hand-drawn">グロウル（うなり声）系ボーカル</span>、<span class="hand-drawn">強靭なダブルキックドラムとブラストビート</span>という特徴を備えた、極端に攻撃的な音楽スタイルとして胎動しました。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 style="color: var(--fashion-1); font-size: 16px;">フロリダ・シーン形成 🌴</h3>
+                        <p>フロリダ州タンパでは<span class="band-name">デス</span>や<span class="band-name">モービッド・エンジェル (Morbid Angel)</span>、<span class="band-name">オビチュアリー (Obituary)</span>といったバンドがシーンを形成し、ドラミングのテクニック向上や複雑なリフ展開で、後のデスメタルの様式美を確立していきました。</p>
+                        
+                        <p class="note">デスの1987年のアルバム「Scream Bloody Gore」は、その残忍な世界観と激烈サウンドで「史上初の本格的デスメタルアルバム」と評されました。</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🔊</span>
+                        <span>デスメタルの音楽的特徴</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                            <div class="tag">ダウンチューニング</div>
+                            <div class="tag">デスグロウル</div>
+                            <div class="tag">ブラストビート</div>
+                            <div class="tag">トレモロピッキング</div>
+                            <div class="tag">複雑なリフ展開</div>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-4); font-size: 16px; margin-bottom: 10px;">✏️ ギター技法</h3>
+                        <p>標準より数音下げるチューニング (ドロップD/C/B)</p>
+                        <p>パームミュートやトレモロピッキングを駆使した低音リフ</p>
+                        <p>不協和音や半音階進行を多用した禍々しい響き</p>
+                        
+                        <div class="connection-line"></div>
+                        
+                        <h3 style="color: var(--fashion-4); font-size: 16px; margin-bottom: 10px;">🥁 ドラム技法</h3>
+                        <p>ブラストビート (スネアとバスドラの高速連打)</p>
+                        <p>ダブルキック (16分音符の高速連打)</p>
+                        <p>トラディショナル・ブラスト / ハンマーブラスト</p>
+                        
+                        <div class="connection-line"></div>
+                        
+                        <h3 style="color: var(--fashion-4); font-size: 16px; margin-bottom: 10px;">🎤 ボーカル技法</h3>
+                        <p>グロウル (低い唸り声)</p>
+                        <p>スクリーム (高音の絶叫)</p>
+                        <p>ピッグスクイール (豚の悲鳴のような発声)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中央カラム -->
+            <div class="column">
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>📈</span>
+                        <span>1990年代: 発展と多様化</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <p>1990年代に入ると、デスメタルはアンダーグラウンドで急速に支持を広げ、一種の<span class="highlight">ブームを迎えました</span>。フロリダのモリサウンド・スタジオでは多くの名盤が録音され、耳の肥えたリスナーを唸らせる<span class="highlight">テクニカルな演奏や過激なサウンドプロダクション</span>が次々と登場しました。</p>
+                        
+                        <div class="image-placeholder">
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: #666;">図: 1980年代後期に登場したBOSSのHM-2 Heavy Metalペダル</div>
+                                <div style="font-size: 12px; color: #666;">全てのノブを最大に上げることで得られる"チェーンソー・トーン"は、<br>スウェーデン・デスメタルの代名詞となった</div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">地域色とサブジャンルの登場 🌍</h3>
+                        
+                        <div class="hand-drawn-box">
+                            <h4 style="font-size: 14px; margin-bottom: 5px;">🇸🇪 スウェディッシュ・デスメタル</h4>
+                            <p><span class="band-name">エントゥームド</span>や<span class="band-name">ディスメンバー</span>などが<span class="highlight">BOSSのHM-2ペダル</span>による強烈なディストーションサウンド（通称「サンライト・サウンド」）を武器に、ずっしりとした中低音の轟音リフで独自の存在感を示しました。</p>
+                        </div>
+                        
+                        <div class="hand-drawn-box">
+                            <h4 style="font-size: 14px; margin-bottom: 5px;">🎵 メロディック・デスメタル</h4>
+                            <p><span class="band-name">アット・ザ・ゲイツ</span>の1995年作「Slaughter of the Soul」は、<span class="highlight">ツインリードの叙情フレーズとデスボイスを融合</span>させた作風で後続のメタルコア勢にも影響を与えています。</p>
+                        </div>
+                        
+                        <div class="hand-drawn-box">
+                            <h4 style="font-size: 14px; margin-bottom: 5px;">💀 ブルータル・デスメタル</h4>
+                            <p><span class="band-name">カンニバル・コープス (Cannibal Corpse)</span>や<span class="band-name">スフョケイション (Suffocation)</span>が<span class="highlight">低音轟くリフと爆発的ブラスト</span>で残虐表現を極めました。スフョケイションは楽曲中に<span class="highlight">ブレイクダウン（スローパート）</span>を織り交ぜる手法も取り入れました。</p>
+                        </div>
+                        
+                        <div class="hand-drawn-box">
+                            <h4 style="font-size: 14px; margin-bottom: 5px;">🧠 テクニカル・デスメタル</h4>
+                            <p><span class="band-name">シニック (Cynic)</span>や<span class="band-name">アセス (Atheist)</span>、超絶技巧で知られる<span class="band-name">クリプトプシー (Cryptopsy)</span>などが、<span class="highlight">変拍子や難解な曲構成</span>でデスメタルに新風を吹き込みました。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🎵</span>
+                        <span>デスメタルの曲構成・特徴</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <p>デスメタルの曲構成は一般的なポップスと大きく異なります。<span class="highlight">リフの連続体として曲が展開</span>することが多く、同じセクションがあまり繰り返されない傾向があります。</p>
+                        
+                        <div class="key-point">
+                            <p>テンポや拍子の変化が激しく、<span class="hand-drawn">ブラストビートの超高速パート</span>から<span class="hand-drawn">遅く重苦しいブレイクダウン</span>へ急転換する展開が特徴的です。</p>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <h3 style="color: var(--fashion-4); font-size: 16px; margin-bottom: 10px;">リフの種類と展開 🎸</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <div style="flex: 1; min-width: 120px; background: rgba(242, 230, 61, 0.2); padding: 8px; border-radius: 8px;">
+                                    <p style="text-align: center; font-weight: bold;">トレモロリフ</p>
+                                    <p style="text-align: center; font-size: 12px;">高速ピッキングによる持続音</p>
+                                </div>
+                                <div style="flex: 1; min-width: 120px; background: rgba(242, 196, 61, 0.2); padding: 8px; border-radius: 8px;">
+                                    <p style="text-align: center; font-weight: bold;">クランチリフ</p>
+                                    <p style="text-align: center; font-size: 12px;">パームミュートによる刻み</p>
+                                </div>
+                                <div style="flex: 1; min-width: 120px; background: rgba(242, 92, 5, 0.2); padding: 8px; border-radius: 8px;">
+                                    <p style="text-align: center; font-weight: bold;">グルーヴリフ</p>
+                                    <p style="text-align: center; font-size: 12px;">ブレイクダウン時の重低音</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="note">
+                            <p>多くのバンドは<span class="highlight">レギュラーチューニングより1音以上低いドロップチューニング</span>（ドロップCやB）や7弦・8弦ギターを使用し、低音域の迫力を最大化しています。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右カラム -->
+            <div class="column">
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🚀</span>
+                        <span>2000年代以降: モダンな進化</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <p>2000年代に入ってもデスメタルは進化を続け、その勢いは衰えませんでした。<span class="highlight">他ジャンルとの異種交配</span>が進み、新たなスタイルが次々に登場します。</p>
+                        
+                        <div class="image-placeholder">
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: #666;">図: デスメタル・バンドのライブ公演の様子（2011年）</div>
+                                <div style="font-size: 12px; color: #666;">巨大なアンプ壁とダブルバスドラムを備えたステージから、<br>轟音とともに過激なサウンドが観客に叩きつけられる</div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">新たなサブジャンル 🔄</h3>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                            <div style="flex: 1; min-width: 100px; border: 2px dashed var(--fashion-4); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">デスコア</p>
+                                <p style="text-align: center; font-size: 12px;">ハードコア/メタルコアとの融合</p>
+                            </div>
+                            <div style="flex: 1; min-width: 100px; border: 2px dashed var(--fashion-4); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">デスドゥーム</p>
+                                <p style="text-align: center; font-size: 12px;">ドゥームメタルとの融合</p>
+                            </div>
+                            <div style="flex: 1; min-width: 100px; border: 2px dashed var(--fashion-4); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">ブラックンド・デス</p>
+                                <p style="text-align: center; font-size: 12px;">ブラックメタルとの融合</p>
+                            </div>
+                        </div>
+                        
+                        <p>カナダの<span class="band-name">アーチスパイア (Archspire)</span>が<span class="highlight">1分間に350以上の爆発的ボーカルワード</span>を叩き込むなど、人間の限界に挑むような超絶技巧も話題となっています。</p>
+                        
+                        <div class="key-point">
+                            <p>現代のデスメタルでは、<span class="hand-drawn">次々に新リフが展開するリフの万華鏡的な構造</span>が好まれ、曲中で<span class="hand-drawn">テンポや拍子がめまぐるしく変化</span>します。</p>
+                        </div>
+                        
+                        <p class="note">デジタル技術の進歩により録音・編集が高精度化し、<span class="highlight">ドラムのトリガー使用やピッチ補正、再アンプなどスタジオ技法</span>が駆使されています。</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🎚️</span>
+                        <span>DAWを用いたデスメタルの制作手法</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <p>デスメタルの楽曲をDAW上で制作する際には、各パートで求められるサウンドを的確に作り込み、全体を高い完成度でミックス/マスタリングする必要があります。</p>
+                        
+                        <div class="key-point">
+                            <p>デスメタルの制作では、<span class="hand-drawn">極限の重低音と攻撃性</span>と<span class="hand-drawn">各楽器の明瞭な分離</span>をいかに両立させるかがカギです。</p>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">推奨プラグイン・機材 💻</h3>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                            <div style="flex: 1; min-width: 120px; background: rgba(89, 60, 71, 0.1); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">ギター用</p>
+                                <p style="text-align: center; font-size: 12px;">Neural DSP「Archetype」<br>Positive Grid「BIAS FX 2」</p>
+                            </div>
+                            <div style="flex: 1; min-width: 120px; background: rgba(89, 60, 71, 0.1); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">ドラム用</p>
+                                <p style="text-align: center; font-size: 12px;">Toontrack「Superior Drummer」<br>GetGood Drums</p>
+                            </div>
+                            <div style="flex: 1; min-width: 120px; background: rgba(89, 60, 71, 0.1); padding: 8px; border-radius: 8px;">
+                                <p style="text-align: center; font-weight: bold;">ベース用</p>
+                                <p style="text-align: center; font-size: 12px;">Neural DSP「Parallax」<br>Darkglass Ultra</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-point">
+                            <p>ミキシングでは、<span class="hand-drawn">各パートの周波数帯域を適切に分離</span>することが重要です。キックは80Hz、ベースは120Hz付近を中心に、各楽器に「居場所」を与えましょう。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🎛️</span>
+                        <span>制作テクニック詳細</span>
+                    </h2>
+                    
+                    <div class="card">
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin-bottom: 10px;">ギターの音作り 🎸</h3>
+                        <div class="hand-drawn-box">
+                            <p>✅ ドロップチューニング（C/B）や7・8弦ギター使用</p>
+                            <p>✅ ダブルトラック録音（L/R 100%パンニング）</p>
+                            <p>✅ ノイズゲートで不要な鳴りを抑制</p>
+                            <p>✅ Tube Screamer系ODでブースト＋歪み</p>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">ドラムプログラミング 🥁</h3>
+                        <div class="hand-drawn-box">
+                            <p>✅ ベロシティ（音の強さ）に微妙な変化をつける</p>
+                            <p>✅ ツーバス（16分連打）は交互に強弱を付ける</p>
+                            <p>✅ 人間の腕足は4本だけ！物理的に可能な演奏に</p>
+                            <p>✅ ラウンドロビン機能で音色に自然な変化を</p>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">ベースの役割と音作り 🎸</h3>
+                        <div class="hand-drawn-box">
+                            <p>✅ 「クリーン低音 + 歪み中高音」の2系統処理</p>
+                            <p>✅ 低音域（50-150Hz）はキックと重ならぬよう調整</p>
+                            <p>✅ 中高域（500Hz-3kHz）に存在感を持たせる</p>
+                            <p>✅ 適度なコンプレッションで音量を安定させる</p>
+                        </div>
+                        
+                        <h3 style="color: var(--fashion-5); font-size: 16px; margin: 15px 0 10px;">ボーカル処理 🎤</h3>
+                        <div class="hand-drawn-box">
+                            <p>✅ 低音域（100-150Hz以下）をカットしてクリアに</p>
+                            <p>✅ 2-5kHz帯域を強調して明瞭さを向上</p>
+                            <p>✅ 強めのコンプレッション（6:1以上のレシオ）</p>
+                            <p>✅ リバーブは短め・控えめに（明瞭さ優先）</p>
+                        </div>
+                    </div>

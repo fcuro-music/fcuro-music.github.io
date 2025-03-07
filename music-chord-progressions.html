@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音楽コード進行のグラフィックレコーディング</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Zen Kurenaido', sans-serif;
+      background-color: #f8f9fa;
+      color: #334155;
+      line-height: 1.4;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 2px dashed #593C47;
+      padding-bottom: 15px;
+    }
+    
+    .title {
+      font-family: 'Kaisei Decol', serif;
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #593C47, #F24405);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .title::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #F2E63D, #F24405);
+      border-radius: 3px;
+    }
+    
+    .date {
+      font-family: 'Yomogi', cursive;
+      font-size: 14px;
+      color: #475569;
+    }
+    
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    
+    .column {
+      flex: 0 0 calc(33.333% - 20px);
+    }
+    
+    .chord-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: relative;
+      border: 2px solid transparent;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .chord-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #F2C53D, #F25C05);
+      border-radius: 3px 3px 0 0;
+    }
+    
+    .chord-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chord-progression {
+      font-family: 'Kaisei Decol', serif;
+      font-size: 18px;
+      color: #1e40af;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+    
+    .chord-progression::before {
+      content: "🎵";
+      margin-right: 8px;
+    }
+    
+    .impression {
+      font-family: 'Zen Kurenaido', sans-serif;
+      font-size: 14px;
+      color: #334155;
+      margin-bottom: 10px;
+      padding-left: 15px;
+      position: relative;
+    }
+    
+    .impression::before {
+      content: "✨";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    
+    .representative {
+      font-family: 'Yomogi', cursive;
+      font-size: 14px;
+      color: #593C47;
+      padding: 8px 12px;
+      background-color: rgba(242, 230, 61, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .representative::before {
+      content: "🎧";
+      margin-right: 8px;
+    }
+    
+    .highlight {
+      font-weight: bold;
+      background: linear-gradient(transparent 70%, #F2C53D 30%);
+      padding: 0 2px;
+    }
+    
+    .chord-symbol {
+      display: inline-block;
+      padding: 3px 8px;
+      margin: 0 2px;
+      border-radius: 4px;
+      font-weight: bold;
+      color: white;
+      background-color: #593C47;
+    }
+    
+    .edm-card {
+      border-left: 3px solid #F2C53D;
+    }
+    
+    .rock-card {
+      border-left: 3px solid #F25C05;
+    }
+    
+    .metal-card {
+      border-left: 3px solid #F24405;
+    }
+    
+    .arrow {
+      margin: 0 5px;
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 8px;
+    }
+    
+    .arrow::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #475569;
+      top: 3px;
+      left: 0;
+    }
+    
+    .arrow::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-top: 2px solid #475569;
+      border-right: 2px solid #475569;
+      transform: rotate(45deg);
+      right: 0;
+      top: 1px;
+    }
+    
+    .genre-title {
+      font-family: 'Kaisei Decol', serif;
+      font-size: 24px;
+      color: #593C47;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px dashed #F2C53D;
+      display: flex;
+      align-items: center;
+    }
+    
+    .edm-title::before {
+      content: "💿";
+      margin-right: 10px;
+    }
+    
+    .rock-title::before {
+      content: "🎸";
+      margin-right: 10px;
+    }
+    
+    .metal-title::before {
+      content: "🤘";
+      margin-right: 10px;
+    }
+    
+    .footer {
+      margin-top: 30px;
+      padding-top: 15px;
+      border-top: 2px dashed #593C47;
+      font-size: 12px;
+      color: #475569;
+      text-align: center;
+    }
+    
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(242, 230, 61, 0.4), transparent);
+      z-index: -1;
+    }
+    
+    .bubble-1 {
+      width: 150px;
+      height: 150px;
+      top: -50px;
+      right: -50px;
+    }
+    
+    .bubble-2 {
+      width: 100px;
+      height: 100px;
+      bottom: 100px;
+      left: -30px;
+      background: radial-gradient(circle at 30% 30%, rgba(242, 91, 4, 0.2), transparent);
+    }
+    
+    .bubble-3 {
+      width: 80px;
+      height: 80px;
+      top: 200px;
+      right: 100px;
+      background: radial-gradient(circle at 30% 30%, rgba(242, 196, 60, 0.3), transparent);
+    }
+    
+    .connector {
+      position: absolute;
+      width: 40px;
+      height: 1px;
+      background: #e2e8f0;
+      transform-origin: 0 0;
+    }
+    
+    @media (max-width: 768px) {
+      .column {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    
+    <header class="header">
+      <h1 class="title">音楽を彩るコード進行の魔法</h1>
+      <div class="date">2025年3月8日 作成</div>
+    </header>
+    
+    <div class="content">
+      <!-- EDM Column -->
+      <div class="column">
+        <h2 class="genre-title edm-title">EDM & ダンスミュージック</h2>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+          </div>
+          <div class="impression">ポップでキャッチーな雰囲気。<span class="highlight">明るく高揚感</span>があり、万人受けしやすい。</div>
+          <div class="representative">David Guetta feat. Sia - "Titanium"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">少し切なさを含みつつ、後半で明るく解放感のある進行。<span class="highlight">エモーショナル</span>で盛り上がる。</div>
+          <div class="representative">Avicii - "Wake Me Up"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span style="margin-left: 5px; font-size: 12px;">(2コードループ)</span>
+          </div>
+          <div class="impression">シンプルだが感情的な響き。静かなパートでのループによく使われ、<span class="highlight">幻想的な雰囲気</span>を作る。</div>
+          <div class="representative">Martin Garrix & Bebe Rexha - "In the Name of Love"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">ii</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">I</span>
+          </div>
+          <div class="impression">ジャズっぽい滑らかな解決感。<span class="highlight">おしゃれで落ち着いた</span>雰囲気を持ち、転調のような洗練を感じさせる。</div>
+          <div class="representative">Deadmau5 - "Strobe"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">III</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">ii</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">ユニークでディープな響き。二つのマイナーコードが挟まることで<span class="highlight">ミステリアス</span>でソウルフルなムード。</div>
+          <div class="representative">Disclosure feat. AlunaGeorge - "White Noise"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">力強く前向きな高揚感。<span class="highlight">王道感</span>がありつつ、プログレッシブな展開でエネルギッシュ。</div>
+          <div class="representative">Swedish House Mafia - "Don't You Worry Child"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">ii</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">I</span>
+          </div>
+          <div class="impression">ひねりの効いたモダンな進行。<span class="highlight">マイナーとメジャーを行き来する滑らかさ</span>が心地よく、少し凝った印象。</div>
+          <div class="representative">Dua Lipa - "New Rules"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">v</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+          </div>
+          <div class="impression">マイナーキー主体だが<span class="highlight">リズミカルでノリが良い</span>。徐々に盛り上げる展開でダンサブル。</div>
+          <div class="representative">Robin S - "Show Me Love"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">iv</span>
+          </div>
+          <div class="impression">ノスタルジックでキャッチーな響き。下行系の進行により<span class="highlight">90年代ユーロダンス</span>のようなエモーショナルさ。</div>
+          <div class="representative">Eiffel 65 - "Blue (Da Ba Dee)"</div>
+        </div>
+        
+        <div class="chord-card edm-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">明るく親しみやすい王道進行。<span class="highlight">どこか懐かしく安定感</span>があり、聞き手に安心感を与える。</div>
+          <div class="representative">Avicii - "Levels"</div>
+        </div>
+      </div>
+      
+      <!-- Rock Column -->
+      <div class="column">
+        <h2 class="genre-title rock-title">ロック & ポップ</h2>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span style="margin-left: 5px; font-size: 12px;">(単一コード反復)</span>
+          </div>
+          <div class="impression">単純だがクセになる<span class="highlight">ミニマルなグルーヴ</span>。同じコードの反復がトランス状態を生み、ビルドアップに効果的。</div>
+          <div class="representative">Lil Louis - "French Kiss"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">I</span>
+          </div>
+          <div class="impression">クラシックで安定したメジャー進行。<span class="highlight">解決感が強く</span>、高揚する雰囲気で曲に締まりを与える。</div>
+          <div class="representative">Armin van Buuren - "Blah Blah Blah"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">III</span>
+          </div>
+          <div class="impression">順次下降する<span class="highlight">ドラマチックな進行</span>。哀愁と力強さが同居し、サビでの盛り上がりを演出。</div>
+          <div class="representative">Gloria Gaynor - "I Will Survive"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭VII</span>
+          </div>
+          <div class="impression">シンプルながら<span class="highlight">クールな2コード進行</span>。モーダルな響きでグルーヴを生み出し、中毒性が高い。</div>
+          <div class="representative">Stardust - "Music Sounds Better With You"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">vi</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">軽快でポジティブな響き。<span class="highlight">爽やかで疾走感</span>があり、ポップなサウンドにマッチする。</div>
+          <div class="representative">Calvin Harris feat. Ellie Goulding - "I Need Your Love"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">III</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+          </div>
+          <div class="impression">ダークでエモーショナルな雰囲気。<span class="highlight">劇的な盛り上がり</span>を持ち、重厚かつ哀愁のある響き。</div>
+          <div class="representative">Avenged Sevenfold - "Nightmare"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+          </div>
+          <div class="impression">階段を下りるような<span class="highlight">哀愁漂う進行</span>。暗く切ないムードで、バラード的な重みを感じさせる。</div>
+          <div class="representative">Metallica - "Nothing Else Matters"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">フラメンコを思わせる<span class="highlight">緊張感のある下降進行</span>。疾走感もあり、エッジの効いたダークさ。</div>
+          <div class="representative">Judas Priest - "Breaking the Law"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">マイナーキーながら終止感があり<span class="highlight">力強い響き</span>。ドラマチックでヒロイックな印象を与える。</div>
+          <div class="representative">Iron Maiden - "The Trooper"</div>
+        </div>
+        
+        <div class="chord-card rock-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+          </div>
+          <div class="impression">マイナーの中に一瞬の明るさが垣間見える進行。<span class="highlight">アンセミックで力強く</span>、サビでの高揚に寄与。</div>
+          <div class="representative">Nightwish - "Nemo"</div>
+        </div>
+      </div>
+      
+      <!-- Metal Column -->
+      <div class="column">
+        <h2 class="genre-title metal-title">メタル & ヘヴィロック</h2>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">III</span>
+          </div>
+          <div class="impression">重厚なリフにわずかな明るさを加える2コード進行。<span class="highlight">シンプルだが印象に残る力強さ</span>。</div>
+          <div class="representative">Black Sabbath - "Iron Man"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭II</span>
+          </div>
+          <div class="impression">半音階的で不穏な響き。<span class="highlight">フリジアンモード特有のダークで攻撃的</span>なムードを醸し出す。</div>
+          <div class="representative">Metallica - "Enter Sandman"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">iv</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">クラシカルで荘厳な雰囲気のマイナー進行。<span class="highlight">静から動への展開が劇的</span>でバラードにも映える。</div>
+          <div class="representative">X Japan - "Forever Love"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭VII</span>
+          </div>
+          <div class="impression">シンプルで力強い2コードのリフ。<span class="highlight">ストレートなロックフィール</span>で、疾走感とノリの良さを生む。</div>
+          <div class="representative">Judas Priest - "You've Got Another Thing Comin'"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">iv</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+          </div>
+          <div class="impression">荘厳で勇壮な響き。<span class="highlight">大仰な雰囲気</span>があり、80年代メタルのアンセム的サウンドを想起させる。</div>
+          <div class="representative">Europe - "The Final Countdown"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">VI</span>
+          </div>
+          <div class="impression">トニックに戻りつつコードが変化する反復リフ。<span class="highlight">邪悪で重苦しい</span>ムードを強調する。</div>
+          <div class="representative">Slayer - "South of Heaven"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭II</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭III</span>
+          </div>
+          <div class="impression">東洋的でエキゾチックな上昇進行。<span class="highlight">怪しげでダークな雰囲気</span>を生み、印象に残る。</div>
+          <div class="representative">Metallica - "Wherever I May Roam"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">IV</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">V</span>
+          </div>
+          <div class="impression">明るく疾走感のあるメジャー進行。<span class="highlight">古典的なロックンロールの風合い</span>で、勢いをもたらす。</div>
+          <div class="representative">Motorhead - "Ace of Spades"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">i</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭III</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">iv</span>
+          </div>
+          <div class="impression">ブルージーでグルーヴィーなマイナー進行。<span class="highlight">ヘヴィだがノリが良く</span>、独特の重厚感がある。</div>
+          <div class="representative">Pantera - "Walk"</div>
+        </div>
+        
+        <div class="chord-card metal-card">
+          <div class="chord-progression">
+            <span class="chord-symbol">I</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭VI</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">♭VII</span>
+            <span class="arrow"></span>
+            <span class="chord-symbol">I</span>
+          </div>
+          <div class="impression">勝利感あふれる華やかな進行。<span class="highlight">曲のエンディングで盛り上がり</span>を演出し、爽快な印象を残す。</div>
+          <div class="representative">Helloween - "I Want Out"</div>
+        </div>
