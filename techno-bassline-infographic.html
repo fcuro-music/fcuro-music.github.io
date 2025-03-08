@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cメジャーのダイアトニックコードに対応するテクノ風ベースライン例</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap');
+        
+        :root {
+            --fashion-1: #593C47;
+            --fashion-2: #F2E63D;
+            --fashion-3: #F2C53D;
+            --fashion-4: #F25C05;
+            --fashion-5: #F24405;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kurenaido', sans-serif;
+            background-color: #f8f9fa;
+            color: #334155;
+            line-height: 1.4;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--fashion-1), var(--fashion-5));
+            color: white;
+            border-bottom: 3px solid var(--fashion-3);
+        }
+
+        .title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--fashion-2), var(--fashion-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .date {
+            font-family: 'Yomogi', cursive;
+            font-size: 14px;
+            color: #f8f8f8;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .column {
+            flex: 1;
+            min-width: calc(33% - 20px);
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f0;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--fashion-2), var(--fashion-4));
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px dashed #eaeaea;
+        }
+
+        .chord-name {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 18px;
+            color: var(--fashion-1);
+            font-weight: bold;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .chord-detail {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .pattern-name {
+            font-family: 'Yomogi', cursive;
+            font-size: 16px;
+            color: #1e40af;
+            font-weight: bold;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .pattern-name::before {
+            content: "📌";
+            margin-right: 5px;
+        }
+
+        .pattern-name::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 25px;
+            width: calc(100% - 25px);
+            height: 5px;
+            background: var(--fashion-3);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 3px;
+        }
+
+        .pattern-description {
+            font-size: 14px;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, var(--fashion-2) 60%);
+            font-weight: bold;
+        }
+
+        .note-box {
+            background: rgba(242, 230, 61, 0.1);
+            border: 1px dashed var(--fashion-3);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .note-box::before {
+            content: "🎵";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: white;
+            padding: 0 5px;
+        }
+
+        .rhythm-pattern {
+            font-family: 'Courier New', monospace;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-left: 4px solid var(--fashion-4);
+        }
+
+        .bubble {
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 15px 0;
+            font-family: 'Yomogi', cursive;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .bubble::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            border-width: 0 10px 10px;
+            border-style: solid;
+            border-color: transparent transparent #e2e8f0 transparent;
+        }
+
+        .bubble::after {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 22px;
+            border-width: 0 8px 8px;
+            border-style: solid;
+            border-color: transparent transparent white transparent;
+        }
+
+        .footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            border-top: 1px dashed #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .note-symbol {
+            font-family: 'Kaisei Decol', serif;
+            font-weight: bold;
+            color: var(--fashion-5);
+        }
+
+        .arrow {
+            position: relative;
+            display: inline-block;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        .arrow::after {
+            content: "→";
+            color: var(--fashion-4);
+        }
+
+        .grid-pattern {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .grid-item {
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+        }
+
+        .beat {
+            font-weight: bold;
+            background: #f1f5f9;
+        }
+
+        @media (max-width: 768px) {
+            .column {
+                min-width: 100%;
+            }
+        }
+
+        .intro-text {
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .decoration {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .notes-decoration {
+            top: 50px;
+            right: 20px;
+            font-size: 80px;
+            transform: rotate(15deg);
+        }
+
+        .wave-decoration {
+            bottom: 50px;
+            left: 20px;
+            font-size: 60px;
+            transform: rotate(-10deg);
+        }
+
+        .marker-line {
+            position: relative;
+        }
+
+        .marker-line::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--fashion-4);
+            opacity: 0.2;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration notes-decoration">🎵 🎹 🎚️</div>
+        <div class="decoration wave-decoration">🎛️ 🎧 🎼</div>
+        
+        <div class="header">
+            <h1 class="title">Cメジャーのダイアトニックコードに対応する<br>テクノ風ベースライン例</h1>
+            <p class="date">2025年3月8日</p>
+        </div>
+
+        <div class="intro-text">
+            Cメジャースケール上のダイアトニックコード I, ii, iii, IV, V, vi（それぞれ Cメジャー、Dマイナー、Eマイナー、Fメジャー、Gメジャー、Aマイナー）に対し、<span class="highlight">テクノらしいベースラインのメロディパターン</span>をいくつか示します。どのパターンも16分音符主体のリズムでシンプルな反復があり、適度なシンコペーション（タイミングのずれ）を含んでいます。パターン自体はキーに依存しない構造ですが、ここでは例としてCメジャーキーで記述します。
+        </div>
+
+        <div class="content">
+            <!-- 左カラム (I, ii) -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">I</h2>
+                        <span class="chord-detail">Cメジャー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">オフビートのルート音パターン</h3>
+                    <p class="pattern-description">
+                        最も基本的なパターンで、コードのルート音（C）を主体に据えたものです。4つ打ちキック（各拍の頭）に対し、ベース音を各拍の裏拍（オフビート）で鳴らすことでシンプルながら力強いグルーヴを生み出します。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> ルート音のC。単調さを避けたい場合、時折5度のGを挟んで変化をつけても良いです。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> 1小節（4拍）の各拍の<span class="highlight">裏</span>で音を鳴らし、拍頭は休符にします。具体的には <span class="highlight">各拍の「&」のタイミングでC音を短く鳴らし</span>、それ以外は休符とします。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        - C - - | - C - - | - C - - | - C - -
+                    </div>
+                    
+                    <div class="bubble">
+                        1拍目の裏（1&）、2拍目の裏（2&）、3拍目の裏（3&）、4拍目の裏（4&）でC音が鳴り続け、安定したトニック（主和音）のうねりが生まれます。
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">ii</h2>
+                        <span class="chord-detail">Dマイナー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">ローリングする16分音符パターン</h3>
+                    <p class="pattern-description">
+                        ii和音（Dマイナー）では、低音域で<span class="highlight">転がるような16分音符の連打</span>を用いたパターンが効果的です。各拍の頭を休符にし、その後の16分音符で音を埋めることで、キックの隙間を埋める「ローリング」感を出します。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> 主にルート音のD。変化をつけるために5度のAや短3度のFを織り交ぜ、Dマイナーコードの響きを感じさせます。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> <span class="highlight">各拍の最初の16分音符を休符</span>にし、その後の3つの16分音符で音を鳴らします。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        - D D D | - D A D | - D D D | - D F D
+                    </div>
+                    
+                    <div class="bubble">
+                        激しく細かい16分音符の連続によって、低音がうねるようなエネルギーを生み出し、Dマイナーコードにマッチしたダークな雰囲気を演出します。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中央カラム (iii, IV) -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">iii</h2>
+                        <span class="chord-detail">Eマイナー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">オクターブ跳躍のパターン</h3>
+                    <p class="pattern-description">
+                        iii和音（Eマイナー）では、<span class="highlight">オクターブ跳躍</span>を使ったパターンが考えられます。低いルート音と1オクターブ上の同じ音を交互に鳴らすことで、シンプルな音使いでも動きのあるベースラインになります。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> ルート音Eの低音と高音（1オクターブ上のE）。Eマイナーコードの他の構成音はあえて使わず、同じ音程のオクターブ違いだけでミニマルな雰囲気を作ります。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> <span class="highlight">各拍の中でオクターブ違いのEを2連打</span>し、残りを休符にするパターンです。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        - E(低) E(高) - | - E(低) E(高) - | - E(低) E(高) - | - E(低) E(高) -
+                    </div>
+                    
+                    <div class="grid-pattern">
+                        <div class="grid-item beat">1拍目</div>
+                        <div class="grid-item beat">2拍目</div>
+                        <div class="grid-item beat">3拍目</div>
+                        <div class="grid-item beat">4拍目</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">E(低)</div>
+                        <div class="grid-item">E(低)</div>
+                        <div class="grid-item">E(低)</div>
+                        <div class="grid-item">E(低)</div>
+                        <div class="grid-item">E(高)</div>
+                        <div class="grid-item">E(高)</div>
+                        <div class="grid-item">E(高)</div>
+                        <div class="grid-item">E(高)</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                        <div class="grid-item">休符</div>
+                    </div>
+                    
+                    <div class="bubble">
+                        素早いオクターブ跳躍により、Eマイナーコードのルート音だけで疾走感のあるグルーヴを生み出します。
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">IV</h2>
+                        <span class="chord-detail">Fメジャー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">コードトーンのアルペジオパターン</h3>
+                    <p class="pattern-description">
+                        IV和音（Fメジャー）では、<span class="highlight">コードトーンを分散和音（アルペジオ）で奏でるパターン</span>が効果的です。明るいメジャーコードの響きを活かし、16分音符の中で音階的な動きを作ります。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> Fメジャーコードの構成音であるF（ルート）、A（長3度）、C（5度）。これらを順番に並べてコードの和音感を表現します。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> <span class="highlight">1拍の中で4つの16分音符を使い、コードトーンを上昇下降させる</span>パターンです。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        F A C A | F A C A | F A C A | F A C A
+                    </div>
+                    
+                    <div class="bubble">
+                        このパターンによりFメジャーコードの明るい響きが際立ち、疾走感とメロディアスさを兼ね備えたテクノベースラインが構築できます。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右カラム (V, vi) -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">V</h2>
+                        <span class="chord-detail">Gメジャー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">ルートと5度の交互パターン</h3>
+                    <p class="pattern-description">
+                        V和音（Gメジャー）には、<span class="highlight">ルート音と5度音を交互に繰り返す</span>シンプルなパターンがマッチします。ルート（G）と5度（D）の組み合わせは安定した響きを持ち、いわゆる「パワーコード」的な強さが感じられます。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> ルート音Gと5度音Dのみを使用します。Gメジャーコードの長3度(B)はあえて使わず、安定感のある完全5度のインターバルに絞ることで力強い響きを維持します。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> <span class="highlight">8分音符の刻みに沿ってGとDを交互に配置</span>します。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        G D G D | G D G D
+                    </div>
+                    
+                    <div class="grid-pattern">
+                        <div class="grid-item beat">1拍目</div>
+                        <div class="grid-item beat">1拍裏</div>
+                        <div class="grid-item beat">2拍目</div>
+                        <div class="grid-item beat">2拍裏</div>
+                        <div class="grid-item"><span class="note-symbol">G</span></div>
+                        <div class="grid-item"><span class="note-symbol">D</span></div>
+                        <div class="grid-item"><span class="note-symbol">G</span></div>
+                        <div class="grid-item"><span class="note-symbol">D</span></div>
+                        <div class="grid-item beat">3拍目</div>
+                        <div class="grid-item beat">3拍裏</div>
+                        <div class="grid-item beat">4拍目</div>
+                        <div class="grid-item beat">4拍裏</div>
+                        <div class="grid-item"><span class="note-symbol">G</span></div>
+                        <div class="grid-item"><span class="note-symbol">D</span></div>
+                        <div class="grid-item"><span class="note-symbol">G</span></div>
+                        <div class="grid-item"><span class="note-symbol">D</span></div>
+                    </div>
+                    
+                    <div class="bubble">
+                        シンプルですが力強いグルーヴを持ち、楽曲の土台を支えます。常にルート→5度→ルート→5度…と動くことで、Gメジャーコード上に安定したうねりを作り出します。
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="chord-name">vi</h2>
+                        <span class="chord-detail">Aマイナー</span>
+                    </div>
+                    
+                    <h3 class="pattern-name">シンコペーションを効かせたリフパターン</h3>
+                    <p class="pattern-description">
+                        vi和音（Aマイナー）では、<span class="highlight">シンコペーション（リズムの食い違い）を活かした短いリフ型のパターン</span>が有効です。休符と音符の配置に変化をつけ、単発のフレーズを繰り返すことで独特のノリを生みます。
+                    </p>
+                    
+                    <div class="note-box">
+                        <p><strong>使用音:</strong> Aマイナーコードの構成音であるA（ルート）、C（短3度）、E（5度）を組み合わせます。ルートの反復で土台を作りつつ、短3度や5度を差し込みます。</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <p><strong>リズム:</strong> <span class="highlight">2拍単位のシンコペートしたフレーズ</span>を1小節に2回繰り返すイメージです。</p>
+                    </div>
+                    
+                    <div class="rhythm-pattern">
+                        - A C - | - E - - | - A C - | - E - -
+                    </div>
+                    
+                    <div class="bubble">
+                        1小節内での音の並びは「… 1&:A、1a:C、2&:E、3&:A、3a:C、4&:E …」となります。オフビートに細かく音を置くことで独特のノリを生み、Aマイナーの暗く深みのある雰囲気を持ちながらもリズミカルなベースラインになります。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            グラフィックレコーディング © 2025年3月8日 | Cメジャーのダイアトニックコードに対応するテクノ風ベースライン例
+        </div>
+    </div>
+</body>
+</html>
